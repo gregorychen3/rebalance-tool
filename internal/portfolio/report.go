@@ -8,12 +8,11 @@ type RebalanceReport struct {
 	Bond float32
 }
 
-func NewRebalanceReport(target *AssetAlloc, curHoldings *Holdings) *RebalanceReport {
-	total := curHoldings.Total()
+func NewRebalanceReport(targetAlloc *AssetAlloc, targetTotal float32, curHoldings *Holdings) *RebalanceReport {
 	targetHoldings := Holdings{
-		dom:  total * target.dom,
-		intl: total * target.intl,
-		bond: total * target.bond,
+		dom:  targetTotal * targetAlloc.dom,
+		intl: targetTotal * targetAlloc.intl,
+		bond: targetTotal * targetAlloc.bond,
 	}
 	return &RebalanceReport{
 		Dom:  targetHoldings.dom - curHoldings.dom,
