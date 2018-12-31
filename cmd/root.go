@@ -16,13 +16,14 @@ var rootCmd = &cobra.Command{
 		dom := promptFloatInput("    Dom stock: ")
 		intl := promptFloatInput("    Intl stock: ")
 		bond := promptFloatInput("    Bond: ")
-		weightings := rebalance.NewWeightings(dom, intl, bond)
-		fmt.Printf("%v", weightings)
+		weights := rebalance.NewTargetAlloc(dom, intl, bond)
+		fmt.Printf("%v", weights)
 	},
 }
 
 func promptFloatInput(msg string) float32 {
-	println(msg)
+	fmt.Printf("%s", msg)
+
 	var f float32
 	if _, err := fmt.Scanf("%f", &f); err != nil {
 		println(err.Error())
