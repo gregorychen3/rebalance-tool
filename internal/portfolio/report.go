@@ -6,7 +6,7 @@ type RebalanceReport struct {
 	bond float32
 }
 
-func NewRebalanceReport(target *TargetAlloc, curHoldings *Holdings) *RebalanceReport {
+func NewRebalanceReport(target *AssetAlloc, curHoldings *Holdings) *RebalanceReport {
 	total := curHoldings.total()
 	targetHoldings := Holdings{
 		dom:  total * target.dom,
