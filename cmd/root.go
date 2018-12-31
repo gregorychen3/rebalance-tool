@@ -16,6 +16,8 @@ var rootCmd = &cobra.Command{
 		fmt.Printf("%#v\n", targetAlloc)
 		curHoldings := promptCurHoldings()
 		fmt.Printf("%#v\n", curHoldings)
+		rebalanceReport := rebalance.NewRebalanceReport(targetAlloc, curHoldings)
+		fmt.Printf("%#v\n", rebalanceReport)
 	},
 }
 
@@ -28,7 +30,7 @@ func promptTargetAlloc() *rebalance.TargetAlloc {
 }
 
 func promptCurHoldings() *rebalance.Holdings {
-	println("Enter target asset allocations (in $):")
+	println("Enter current portfolio holdings (in $):")
 	dom := promptFloatInput("    Dom stock? ")
 	intl := promptFloatInput("    Intl stock? ")
 	bond := promptFloatInput("    Bond? ")
