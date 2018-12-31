@@ -12,7 +12,7 @@ var rootCmd = &cobra.Command{
 	Use:  "rebalance",
 	Long: "Interactive CLI utility to realign weightings of portfolio assets\nhttps://github.com/gregorychen3/rebalance-tool",
 	Run: func(cmd *cobra.Command, args []string) {
-		println("Enter desired weightings (in %):")
+		println("Enter target asset allocations (in %):")
 		dom := promptFloatInput("    Dom stock? ")
 		intl := promptFloatInput("    Intl stock? ")
 		bond := promptFloatInput("    Bond? ")
