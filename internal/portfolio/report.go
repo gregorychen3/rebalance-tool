@@ -1,4 +1,4 @@
-package rebalance
+package portfolio
 
 type RebalanceReport struct {
 	dom  float32

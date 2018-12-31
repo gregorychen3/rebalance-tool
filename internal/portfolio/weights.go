@@ -1,4 +1,4 @@
-package rebalance
+package portfolio
 
 type TargetAlloc struct {
 	dom  float32

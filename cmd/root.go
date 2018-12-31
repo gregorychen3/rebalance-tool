@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gregorychen3/rebalance-tool/internal/rebalance"
+	"github.com/gregorychen3/rebalance-tool/internal/portfolio"
 	"github.com/spf13/cobra"
 )
 
@@ -16,25 +16,25 @@ var rootCmd = &cobra.Command{
 		fmt.Printf("%#v\n", targetAlloc)
 		curHoldings := promptCurHoldings()
 		fmt.Printf("%#v\n", curHoldings)
-		rebalanceReport := rebalance.NewRebalanceReport(targetAlloc, curHoldings)
+		rebalanceReport := portfolio.NewRebalanceReport(targetAlloc, curHoldings)
 		fmt.Printf("%#v\n", rebalanceReport)
 	},
 }
 
-func promptTargetAlloc() *rebalance.TargetAlloc {
+func promptTargetAlloc() *portfolio.TargetAlloc {
 	println("Enter target asset allocations (in %):")
 	dom := promptFloatInput("    Dom stock? ")
 	intl := promptFloatInput("    Intl stock? ")
 	bond := promptFloatInput("    Bond? ")
-	return rebalance.NewTargetAlloc(dom, intl, bond)
+	return portfolio.NewTargetAlloc(dom, intl, bond)
 }
 
-func promptCurHoldings() *rebalance.Holdings {
+func promptCurHoldings() *portfolio.Holdings {
 	println("Enter current portfolio holdings (in $):")
 	dom := promptFloatInput("    Dom stock? ")
 	intl := promptFloatInput("    Intl stock? ")
 	bond := promptFloatInput("    Bond? ")
-	return rebalance.NewHoldings(dom, intl, bond)
+	return portfolio.NewHoldings(dom, intl, bond)
 }
 
 func promptFloatInput(msg string) float32 {

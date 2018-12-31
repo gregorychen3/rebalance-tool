@@ -1,4 +1,4 @@
-package rebalance
+package portfolio
 
 type Holdings struct {
 	dom  float32
