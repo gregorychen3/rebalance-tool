@@ -10,7 +10,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:  "rebalance",
-	Long: "Interactive CLI utility to realign weightings of portfolio assets\nhttps://github.com/gregorychen3/rebalance-tool",
+	Long: "Interactive CLI utility to realign weightings of portfolio assets.\nhttps://github.com/gregorychen3/rebalance-tool",
 	Run: func(cmd *cobra.Command, args []string) {
 		targetAlloc := promptTargetAlloc()
 		curHoldings := promptCurHoldings()
