@@ -41,9 +41,9 @@ func TopupTotal(targetAlloc *AssetAlloc, curHoldings *Holdings) float64 {
 	var topupTotal float64
 	switch i := maxElementIndex(allocDiffs); i {
 	case 0:
-		topupTotal = curAlloc.dom / targetAlloc.dom
+		topupTotal = curHoldings.dom / targetAlloc.dom
 	case 1:
-		topupTotal = curAlloc.intl / targetAlloc.intl
+		topupTotal = curHoldings.intl / targetAlloc.intl
 	case 2:
 		topupTotal = curHoldings.bond / targetAlloc.bond
 	}
