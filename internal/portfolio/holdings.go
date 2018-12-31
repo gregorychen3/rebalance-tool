@@ -14,6 +14,6 @@ func NewHoldings(dom float32, intl float32, bond float32) *Holdings {
 	}
 }
 
-func (h *Holdings) total() float32 {
+func (h *Holdings) Total() float32 {
 	return h.dom + h.intl + h.bond
 }

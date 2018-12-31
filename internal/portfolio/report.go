@@ -1,21 +1,21 @@
 package portfolio
 
 type RebalanceReport struct {
-	dom  float32
-	intl float32
-	bond float32
+	Dom  float32
+	Intl float32
+	Bond float32
 }
 
 func NewRebalanceReport(target *AssetAlloc, curHoldings *Holdings) *RebalanceReport {
-	total := curHoldings.total()
+	total := curHoldings.Total()
 	targetHoldings := Holdings{
 		dom:  total * target.dom,
 		intl: total * target.intl,
 		bond: total * target.bond,
 	}
 	return &RebalanceReport{
-		dom:  targetHoldings.dom - curHoldings.dom,
-		intl: targetHoldings.intl - curHoldings.intl,
-		bond: targetHoldings.bond - curHoldings.bond,
+		Dom:  targetHoldings.dom - curHoldings.dom,
+		Intl: targetHoldings.intl - curHoldings.intl,
+		Bond: targetHoldings.bond - curHoldings.bond,
 	}
 }
