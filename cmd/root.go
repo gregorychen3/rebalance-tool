@@ -14,8 +14,10 @@ var rootCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		targetAlloc := promptTargetAlloc()
 		curHoldings := promptCurHoldings()
+
+		fmt.Printf("Adjustments to rebalance to a total portfolio value of $%.2f:\n", curHoldings.Total())
 		rebalanceReport := portfolio.NewRebalanceReport(targetAlloc, curHoldings)
-		prettyPrintReport(curHoldings.Total(), rebalanceReport)
+		prettyPrintReport(rebalanceReport)
 	},
 }
 
@@ -45,8 +47,7 @@ func promptFloatInput(msg string) float32 {
 	return f
 }
 
-func prettyPrintReport(total float32, r *portfolio.RebalanceReport) {
-	fmt.Printf("Adjustments to rebalance to a total portfolio value of $%.2f:\n", total)
+func prettyPrintReport(r *portfolio.RebalanceReport) {
 	fmt.Printf("    Dom:  %+.2f\n", r.Dom)
 	fmt.Printf("    Intl: %+.2f\n", r.Intl)
 	fmt.Printf("    Bond: %+.2f\n", r.Bond)
