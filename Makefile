@@ -1,5 +1,5 @@
 build:
-	go build
+	go build -o dist/rebalance_tool
 
 all:
 	GOOS=darwin GOARCH=amd64 go build -o dist/rebalance_tool.darwin.amd64
