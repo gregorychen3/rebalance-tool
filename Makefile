@@ -1,9 +1,9 @@
 build:
-	go build -o dist/rebalance_tool
+	GO111MODULE=on go build -o dist/rebalance_tool
 
 all:
-	GOOS=darwin GOARCH=amd64 go build -o dist/rebalance_tool.darwin.amd64
-	GOOS=linux GOARCH=amd64 go build -o dist/rebalance_tool.linux.amd64
-	GOOS=windows go get -u github.com/spf13/cobra
-	GOOS=windows GOARCH=amd64 go build  -o dist/rebalance_tool.windows.amd64.exe
+	GO111MODULE=on GOOS=darwin GOARCH=amd64 go build -o dist/rebalance_tool.darwin.amd64
+	GGO111MODULE=on OOS=linux GOARCH=amd64 go build -o dist/rebalance_tool.linux.amd64
+	GGO111MODULE=on OOS=windows go get -u github.com/spf13/cobra
+	GGO111MODULE=on OOS=windows GOARCH=amd64 go build  -o dist/rebalance_tool.windows.amd64.exe
 
