@@ -18,14 +18,19 @@ var rootCmd = &cobra.Command{
 		fmt.Printf("Adjustments to rebalance to unchanged portfolio value of $%.2f:\n", curHoldings.Total())
 		rebalanceReport := portfolio.NewRebalanceReport(targetAlloc, curHoldings.Total(), curHoldings)
 		fmt.Printf("%s", rebalanceReport.Pretty())
+
+		topupTotal := portfolio.TopupTotal(targetAlloc, curHoldings)
+		fmt.Printf("Adjustments to \"top-up\" rebalance to new portfolio value of $%.2f:\n", topupTotal)
+		topupRebalanceReport := portfolio.NewRebalanceReport(targetAlloc, topupTotal, curHoldings)
+		fmt.Printf("%s", topupRebalanceReport.Pretty())
 	},
 }
 
 func promptTargetAlloc() *portfolio.AssetAlloc {
 	println("Enter target asset allocations (in %):")
-	dom := promptFloatInput("    Dom stock? ")
-	intl := promptFloatInput("    Intl stock? ")
-	bond := promptFloatInput("    Bond? ")
+	dom := promptFloatInput("    Dom stock? ") / 100
+	intl := promptFloatInput("    Intl stock? ") / 100
+	bond := promptFloatInput("    Bond? ") / 100
 	return portfolio.NewAssetAlloc(dom, intl, bond)
 }
 
@@ -37,9 +42,9 @@ func promptCurHoldings() *portfolio.Holdings {
 	return portfolio.NewHoldings(dom, intl, bond)
 }
 
-func promptFloatInput(msg string) float32 {
+func promptFloatInput(msg string) float64 {
 	fmt.Printf("%s", msg)
-	var f float32
+	var f float64
 	if _, err := fmt.Scanf("%f", &f); err != nil {
 		println(err.Error())
 		os.Exit(1)

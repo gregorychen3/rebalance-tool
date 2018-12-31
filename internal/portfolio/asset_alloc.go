@@ -1,15 +1,15 @@
 package portfolio
 
 type AssetAlloc struct {
-	dom  float32
-	intl float32
-	bond float32
+	dom  float64
+	intl float64
+	bond float64
 }
 
-func NewAssetAlloc(dom float32, intl float32, bond float32) *AssetAlloc {
+func NewAssetAlloc(dom float64, intl float64, bond float64) *AssetAlloc {
 	return &AssetAlloc{
-		dom:  dom / 100,
-		intl: intl / 100,
-		bond: bond / 100,
+		dom:  dom,
+		intl: intl,
+		bond: bond,
 	}
 }

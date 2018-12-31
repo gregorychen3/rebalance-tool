@@ -1,12 +1,12 @@
 package portfolio
 
 type Holdings struct {
-	dom  float32
-	intl float32
-	bond float32
+	dom  float64
+	intl float64
+	bond float64
 }
 
-func NewHoldings(dom float32, intl float32, bond float32) *Holdings {
+func NewHoldings(dom float64, intl float64, bond float64) *Holdings {
 	return &Holdings{
 		dom:  dom,
 		intl: intl,
@@ -14,6 +14,6 @@ func NewHoldings(dom float32, intl float32, bond float32) *Holdings {
 	}
 }
 
-func (h *Holdings) Total() float32 {
+func (h *Holdings) Total() float64 {
 	return h.dom + h.intl + h.bond
 }
