@@ -17,12 +17,12 @@ var rootCmd = &cobra.Command{
 
 		fmt.Printf("Adjustments to rebalance to unchanged portfolio value of $%.2f:\n", curHoldings.Total())
 		rebalanceReport := portfolio.NewRebalanceReport(targetAlloc, curHoldings.Total(), curHoldings)
-		fmt.Printf("%s", rebalanceReport.Pretty())
+		prettyPrintReport(rebalanceReport)
 
 		topupTotal := portfolio.TopupTotal(targetAlloc, curHoldings)
 		fmt.Printf("Adjustments to \"top-up\" rebalance to new portfolio value of $%.2f:\n", topupTotal)
 		topupRebalanceReport := portfolio.NewRebalanceReport(targetAlloc, topupTotal, curHoldings)
-		fmt.Printf("%s", topupRebalanceReport.Pretty())
+		prettyPrintReport(topupRebalanceReport)
 	},
 }
 
@@ -50,6 +50,10 @@ func promptFloatInput(msg string) float64 {
 		os.Exit(1)
 	}
 	return f
+}
+
+func prettyPrintReport(r *portfolio.RebalanceReport) {
+	fmt.Printf("    Dom:  %+.2f\n    Intl: %+.2f\n    Bond: %+.2f\n", r.Dom, r.Intl, r.Bond)
 }
 
 func Execute() {

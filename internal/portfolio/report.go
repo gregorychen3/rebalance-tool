@@ -1,9 +1,5 @@
 package portfolio
 
-import (
-	"fmt"
-)
-
 type RebalanceReport struct {
 	Dom  float64
 	Intl float64
@@ -21,10 +17,6 @@ func NewRebalanceReport(targetAlloc *AssetAlloc, targetTotal float64, curHolding
 		Intl: targetHoldings.intl - curHoldings.intl,
 		Bond: targetHoldings.bond - curHoldings.bond,
 	}
-}
-
-func (r *RebalanceReport) Pretty() string {
-	return fmt.Sprintf("    Dom:  %+.2f\n    Intl: %+.2f\n    Bond: %+.2f\n", r.Dom, r.Intl, r.Bond)
 }
 
 func TopupTotal(targetAlloc *AssetAlloc, curHoldings *Holdings) float64 {
