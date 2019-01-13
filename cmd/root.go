@@ -48,9 +48,9 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-func promptCurHoldings(alloc portfolio.AssetAlloc) portfolio.Holdingss {
+func promptCurHoldings(alloc portfolio.AssetAlloc) portfolio.Holdings {
 	println("Enter current portfolio holdings (in $):")
-	holdings := portfolio.Holdingss{}
+	holdings := portfolio.Holdings{}
 	for k := range alloc {
 		holdings[k] = promptFloatInput(fmt.Sprintf("    %v? ", k))
 	}
