@@ -1,11 +1,5 @@
 package portfolio
 
-type RebalanceReport struct {
-	Dom  float64
-	Intl float64
-	Bond float64
-}
-
 type RebalReport map[string]float64
 
 func NewRebalanceReport(targetAlloc AssetAllocation, targetTotal float64, curHoldings Holdingss) RebalReport {

@@ -48,16 +48,7 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-func promptTargetAlloc() *portfolio.AssetAlloc {
-	println("Enter target asset allocations (in %):")
-	dom := promptFloatInput("    Dom stock? ") / 100
-	intl := promptFloatInput("    Intl stock? ") / 100
-	bond := promptFloatInput("    Bond? ") / 100
-	return portfolio.NewAssetAlloc(dom, intl, bond)
-}
-
 func promptCurHoldings(alloc portfolio.AssetAllocation) portfolio.Holdingss {
-
 	println("Enter current portfolio holdings (in $):")
 	holdings := portfolio.Holdingss{}
 	for k := range alloc {
