@@ -2,10 +2,10 @@ package portfolio
 
 import "errors"
 
-type AssetAllocation map[string]float64
+type AssetAlloc map[string]float64
 
-func NewAssetAllocation(weights map[string]int) (AssetAllocation, error) {
-	ret := AssetAllocation{}
+func NewAssetAlloc(weights map[string]int) (AssetAlloc, error) {
+	ret := AssetAlloc{}
 	sum := 0
 	for k, v := range weights {
 		ret[k] = float64(v) / 100.0

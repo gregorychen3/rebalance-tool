@@ -2,7 +2,7 @@ package portfolio
 
 type RebalReport map[string]float64
 
-func NewRebalanceReport(targetAlloc AssetAllocation, targetTotal float64, curHoldings Holdingss) RebalReport {
+func NewRebalanceReport(targetAlloc AssetAlloc, targetTotal float64, curHoldings Holdingss) RebalReport {
 	targetHoldings := Holdingss{}
 	for k, v := range targetAlloc {
 		targetHoldings[k] = targetTotal * v
@@ -15,10 +15,10 @@ func NewRebalanceReport(targetAlloc AssetAllocation, targetTotal float64, curHol
 	return ret
 }
 
-func TopupTotal(targetAlloc AssetAllocation, curHoldings Holdingss) float64 {
+func TopupTotal(targetAlloc AssetAlloc, curHoldings Holdingss) float64 {
 	// find most overweighted category
 	curTotal := curHoldings.Total()
-	curAlloc := AssetAllocation{}
+	curAlloc := AssetAlloc{}
 	for k, v := range curHoldings {
 		curAlloc[k] = v / curTotal
 	}

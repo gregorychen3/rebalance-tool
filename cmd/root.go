@@ -29,9 +29,9 @@ var rootCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		targetAllocation, err := portfolio.NewAssetAllocation(weightsMap)
+		targetAllocation, err := portfolio.NewAssetAlloc(weightsMap)
 		if err != nil {
-			println(errors.Wrap(err, "failed creating target AssetAllocation").Error())
+			println(errors.Wrap(err, "failed creating target AssetAlloc").Error())
 			os.Exit(1)
 		}
 
@@ -48,7 +48,7 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-func promptCurHoldings(alloc portfolio.AssetAllocation) portfolio.Holdingss {
+func promptCurHoldings(alloc portfolio.AssetAlloc) portfolio.Holdingss {
 	println("Enter current portfolio holdings (in $):")
 	holdings := portfolio.Holdingss{}
 	for k := range alloc {
