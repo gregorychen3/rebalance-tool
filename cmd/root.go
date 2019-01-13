@@ -4,13 +4,31 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/gregorychen3/rebalance-tool/cmd/config"
 	"github.com/gregorychen3/rebalance-tool/internal/portfolio"
 	"github.com/spf13/cobra"
 )
 
+const configFileFlag = "config"
+
+var cfgFile string
+
+func init() {
+	rootCmd.Flags().StringVar(&cfgFile, configFileFlag, "rebalance_conf.json", "Config file defining target asset allocation")
+	rootCmd.MarkFlagRequired(configFileFlag)
+}
+
 var rootCmd = &cobra.Command{
 	Use:  "rebalance",
 	Long: "Interactive CLI utility to realign weightings of portfolio assets.\nhttps://github.com/gregorychen3/rebalance-tool",
+	PreRun: func(cmd *cobra.Command, args []string) {
+		weightMap, err := config.ReadConfigFile(cfgFile)
+		if err != nil {
+			println(err.Error())
+			os.Exit(1)
+		}
+		fmt.Printf("%v\n", weightMap)
+	},
 	Run: func(cmd *cobra.Command, args []string) {
 		targetAlloc := promptTargetAlloc()
 		curHoldings := promptCurHoldings()
