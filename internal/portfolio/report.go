@@ -32,18 +32,6 @@ func TopupTotal(targetAlloc AssetAlloc, curHoldings Holdings) float64 {
 	return curHoldings[mostOverallocatedAsset] / targetAlloc[mostOverallocatedAsset]
 }
 
-func maxElementIndex(arr []float64) int {
-	maxSeen := -1.0
-	maxSeenIndex := -1
-	for i, v := range arr {
-		if v > maxSeen {
-			maxSeen = v
-			maxSeenIndex = i
-		}
-	}
-	return maxSeenIndex
-}
-
 func getKeyWithGreatestValue(m map[string]float64) string {
 	var maxK string
 	var maxV float64
