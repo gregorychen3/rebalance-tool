@@ -34,19 +34,22 @@ var rootCmd = &cobra.Command{
 			println(errors.Wrap(err, "failed creating target AssetAllocation").Error())
 			os.Exit(1)
 		}
+
+		curHoldings := promptCurHoldings(targetAllocation)
+
 		fmt.Printf("%v\n", targetAllocation)
+		fmt.Printf("%v\n", curHoldings)
 
-		targetAlloc := promptTargetAlloc()
-		curHoldings := promptCurHoldings()
+		/*
+			fmt.Printf("Adjustments to rebalance to unchanged portfolio value of $%.2f:\n", curHoldings.Total())
+			rebalanceReport := portfolio.NewRebalanceReport(targetAlloc, curHoldings.Total(), curHoldings)
+			prettyPrintReport(rebalanceReport)
 
-		fmt.Printf("Adjustments to rebalance to unchanged portfolio value of $%.2f:\n", curHoldings.Total())
-		rebalanceReport := portfolio.NewRebalanceReport(targetAlloc, curHoldings.Total(), curHoldings)
-		prettyPrintReport(rebalanceReport)
-
-		topupTotal := portfolio.TopupTotal(targetAlloc, curHoldings)
-		fmt.Printf("Adjustments to \"top-up\" rebalance to new portfolio value of $%.2f:\n", topupTotal)
-		topupRebalanceReport := portfolio.NewRebalanceReport(targetAlloc, topupTotal, curHoldings)
-		prettyPrintReport(topupRebalanceReport)
+			topupTotal := portfolio.TopupTotal(targetAlloc, curHoldings)
+			fmt.Printf("Adjustments to \"top-up\" rebalance to new portfolio value of $%.2f:\n", topupTotal)
+			topupRebalanceReport := portfolio.NewRebalanceReport(targetAlloc, topupTotal, curHoldings)
+			prettyPrintReport(topupRebalanceReport)
+		*/
 	},
 }
 
@@ -58,12 +61,14 @@ func promptTargetAlloc() *portfolio.AssetAlloc {
 	return portfolio.NewAssetAlloc(dom, intl, bond)
 }
 
-func promptCurHoldings() *portfolio.Holdings {
+func promptCurHoldings(alloc portfolio.AssetAllocation) portfolio.Holdingss {
+
 	println("Enter current portfolio holdings (in $):")
-	dom := promptFloatInput("    Dom stock? ")
-	intl := promptFloatInput("    Intl stock? ")
-	bond := promptFloatInput("    Bond? ")
-	return portfolio.NewHoldings(dom, intl, bond)
+	holdings := portfolio.Holdingss{}
+	for k := range alloc {
+		holdings[k] = promptFloatInput(fmt.Sprintf("    %v? ", k))
+	}
+	return holdings
 }
 
 func promptFloatInput(msg string) float64 {

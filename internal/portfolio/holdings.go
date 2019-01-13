@@ -17,3 +17,5 @@ func NewHoldings(dom float64, intl float64, bond float64) *Holdings {
 func (h *Holdings) Total() float64 {
 	return h.dom + h.intl + h.bond
 }
+
+type Holdingss map[string]float64
