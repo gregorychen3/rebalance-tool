@@ -21,28 +21,21 @@ func NewRebalanceReport(targetAlloc AssetAllocation, targetTotal float64, curHol
 	return ret
 }
 
-func TopupTotal(targetAlloc *AssetAlloc, curHoldings *Holdings) float64 {
+func TopupTotal(targetAlloc AssetAllocation, curHoldings Holdingss) float64 {
 	// find most overweighted category
 	curTotal := curHoldings.Total()
-	curAlloc := NewAssetAlloc(curHoldings.dom/curTotal, curHoldings.intl/curTotal, curHoldings.bond/curTotal)
-
-	allocDiffs := []float64{
-		curAlloc.dom - targetAlloc.dom,
-		curAlloc.intl - targetAlloc.intl,
-		curAlloc.bond - targetAlloc.bond,
+	curAlloc := AssetAllocation{}
+	for k, v := range curHoldings {
+		curAlloc[k] = v / curTotal
 	}
 
-	var topupTotal float64
-	switch i := maxElementIndex(allocDiffs); i {
-	case 0:
-		topupTotal = curHoldings.dom / targetAlloc.dom
-	case 1:
-		topupTotal = curHoldings.intl / targetAlloc.intl
-	case 2:
-		topupTotal = curHoldings.bond / targetAlloc.bond
+	allocDiffs := map[string]float64{}
+	for k, v := range curAlloc {
+		allocDiffs[k] = v - targetAlloc[k]
 	}
 
-	return topupTotal
+	mostOverallocatedAsset := getKeyWithGreatestValue(allocDiffs)
+	return curHoldings[mostOverallocatedAsset] / targetAlloc[mostOverallocatedAsset]
 }
 
 func maxElementIndex(arr []float64) int {
@@ -55,4 +48,21 @@ func maxElementIndex(arr []float64) int {
 		}
 	}
 	return maxSeenIndex
+}
+
+func getKeyWithGreatestValue(m map[string]float64) string {
+	var maxK string
+	var maxV float64
+	for k, v := range m {
+		maxK = k
+		maxV = v
+		break
+	}
+	for k, v := range m {
+		if v > maxV {
+			maxK = k
+			maxV = v
+		}
+	}
+	return maxK
 }

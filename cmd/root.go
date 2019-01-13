@@ -37,19 +37,14 @@ var rootCmd = &cobra.Command{
 
 		curHoldings := promptCurHoldings(targetAllocation)
 
-		fmt.Printf("%v\n", targetAllocation)
-		fmt.Printf("%v\n", curHoldings)
-
 		fmt.Printf("Adjustments to rebalance to unchanged portfolio value of $%.2f:\n", curHoldings.Total())
 		rebalanceReport := portfolio.NewRebalanceReport(targetAllocation, curHoldings.Total(), curHoldings)
 		prettyPrintReport(rebalanceReport)
 
-		/*
-			topupTotal := portfolio.TopupTotal(targetAlloc, curHoldings)
-			fmt.Printf("Adjustments to \"top-up\" rebalance to new portfolio value of $%.2f:\n", topupTotal)
-			topupRebalanceReport := portfolio.NewRebalanceReport(targetAlloc, topupTotal, curHoldings)
-			prettyPrintReport(topupRebalanceReport)
-		*/
+		topupTotal := portfolio.TopupTotal(targetAllocation, curHoldings)
+		fmt.Printf("Adjustments to \"top-up\" rebalance to new portfolio value of $%.2f:\n", topupTotal)
+		topupRebalanceReport := portfolio.NewRebalanceReport(targetAllocation, topupTotal, curHoldings)
+		prettyPrintReport(topupRebalanceReport)
 	},
 }
 
