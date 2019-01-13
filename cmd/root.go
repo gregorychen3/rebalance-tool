@@ -67,7 +67,7 @@ func promptFloatInput(msg string) float64 {
 	return f
 }
 
-func prettyPrintReport(r portfolio.RebalReport) {
+func prettyPrintReport(r portfolio.RebalanceReport) {
 	for k, v := range r {
 		fmt.Printf("    %v:  %+.2f\n", k, v)
 	}
