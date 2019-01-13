@@ -40,8 +40,8 @@ var rootCmd = &cobra.Command{
 		fmt.Printf("%v\n", targetAllocation)
 		fmt.Printf("%v\n", curHoldings)
 
+		fmt.Printf("Adjustments to rebalance to unchanged portfolio value of $%.2f:\n", curHoldings.Total())
 		/*
-			fmt.Printf("Adjustments to rebalance to unchanged portfolio value of $%.2f:\n", curHoldings.Total())
 			rebalanceReport := portfolio.NewRebalanceReport(targetAlloc, curHoldings.Total(), curHoldings)
 			prettyPrintReport(rebalanceReport)
 
