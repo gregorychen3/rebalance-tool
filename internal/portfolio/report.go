@@ -6,17 +6,19 @@ type RebalanceReport struct {
 	Bond float64
 }
 
-func NewRebalanceReport(targetAlloc *AssetAlloc, targetTotal float64, curHoldings *Holdings) *RebalanceReport {
-	targetHoldings := Holdings{
-		dom:  targetTotal * targetAlloc.dom,
-		intl: targetTotal * targetAlloc.intl,
-		bond: targetTotal * targetAlloc.bond,
+type RebalReport map[string]float64
+
+func NewRebalanceReport(targetAlloc AssetAllocation, targetTotal float64, curHoldings Holdingss) RebalReport {
+	targetHoldings := Holdingss{}
+	for k, v := range targetAlloc {
+		targetHoldings[k] = targetTotal * v
 	}
-	return &RebalanceReport{
-		Dom:  targetHoldings.dom - curHoldings.dom,
-		Intl: targetHoldings.intl - curHoldings.intl,
-		Bond: targetHoldings.bond - curHoldings.bond,
+
+	ret := RebalReport{}
+	for k, v := range targetHoldings {
+		ret[k] = v - curHoldings[k]
 	}
+	return ret
 }
 
 func TopupTotal(targetAlloc *AssetAlloc, curHoldings *Holdings) float64 {
