@@ -25,7 +25,7 @@ func TopupTotal(targetAlloc AssetAlloc, curHoldings Holdings) float64 {
 
 	allocDiffs := map[string]float64{}
 	for k, v := range curAlloc {
-		allocDiffs[k] = v - targetAlloc[k]
+		allocDiffs[k] = (v - targetAlloc[k]) / targetAlloc[k]
 	}
 
 	mostOverallocatedAsset := getKeyWithGreatestValue(allocDiffs)
