@@ -10,20 +10,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const configFileFlag = "config"
-
-var cfgFile string
-
-func init() {
-	rootCmd.Flags().StringVar(&cfgFile, configFileFlag, "rebalance_conf.json", "Config file defining target asset allocation")
-	rootCmd.MarkFlagRequired(configFileFlag)
-}
-
 var rootCmd = &cobra.Command{
-	Use:  "rebalance",
+	Use:  "rebalance [config_file]",
 	Long: "Interactive CLI utility to realign weightings of portfolio assets.\nhttps://github.com/gregorychen3/rebalance-tool",
+	Args: cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		weightsMap, err := config.ReadConfigFile(cfgFile)
+		weightsMap, err := config.ReadConfigFile(args[0])
 		if err != nil {
 			println(err.Error())
 			os.Exit(1)
